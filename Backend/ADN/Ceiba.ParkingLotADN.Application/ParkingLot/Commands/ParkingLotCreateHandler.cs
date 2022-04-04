@@ -13,7 +13,15 @@ namespace Ceiba.ParkingLotADN.Application.Person.Commands
         protected override async Task Handle(ParkingLotCreateCommand request, CancellationToken cancellationToken)
         {
             _ = new ArgumentNullException(nameof(request), "request object needed to handle this task");
-            await _parkingLotService.RegisterParkingLotAsync(new Domain.Entities.ParkingLot { Plate = request.Plate, Cylinder = request.Cylinder, StartedAt = DateTime.Now, VehicleType = request.VehicleType, Status = true });
+            var parkingLotModel = new Domain.Entities.ParkingLot
+            {
+                Plate = request.Plate,
+                Cylinder = request.Cylinder,
+                StartedAt = DateTime.Now,
+                VehicleType = request.VehicleType,
+                Status = true
+            };
+            await _parkingLotService.RegisterParkingLotAsync(parkingLotModel);
         }
     }
 }

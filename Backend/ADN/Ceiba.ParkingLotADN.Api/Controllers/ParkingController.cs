@@ -14,19 +14,19 @@ namespace Ceiba.ParkingLotADN.Api.Controllers
         public ParkingController(IMediator mediator) => _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         
         [HttpGet]
-        public async Task<IEnumerable<ParkingLotDto>> Get() => await _mediator.Send(new ParkingLotAllQuery());
+        public async Task<IEnumerable<ParkingLotDto>> GetAsync() => await _mediator.Send(new ParkingLotAllQuery());
         
         [HttpGet("{id}")]
-        public async Task<ParkingLotDto> Get(Guid id) => await _mediator.Send(new ParkingLotQuery(id));
+        public async Task<ParkingLotDto> GetAsync(Guid id) => await _mediator.Send(new ParkingLotQuery(id));
 
         [HttpGet("{id}/cost")]
-        public async Task<decimal> GetCost(Guid id) => await _mediator.Send(new ParkingLotCostQuery(id));
+        public async Task<decimal> GetCostAsync(Guid id) => await _mediator.Send(new ParkingLotCostQuery(id));
 
         [HttpPost]
-        public async Task Post(ParkingLotCreateCommand parking) => await _mediator.Send(parking);
+        public async Task PostAsync(ParkingLotCreateCommand parking) => await _mediator.Send(parking);
 
         [HttpPut("{id}/release")]
-        public async Task<decimal> Release(Guid id) => await _mediator.Send(new ParkingLotReleaseAsyncCommand(id));
+        public async Task<decimal> ReleaseAsync(Guid id) => await _mediator.Send(new ParkingLotReleaseAsyncCommand(id));
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace Ceiba.ParkingLotADN.Domain.Exception
 {
+    [System.Serializable]
     public class AlreadyRegisteredException : AppException
     {
         public AlreadyRegisteredException() { }

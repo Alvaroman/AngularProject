@@ -15,7 +15,6 @@ public sealed class AppExceptionFilterAttribute : ExceptionFilterAttribute
         _Logger = logger;
     }
 
-
     public override void OnException(ExceptionContext context)
     {
         if (context != null)
@@ -36,5 +35,4 @@ public sealed class AppExceptionFilterAttribute : ExceptionFilterAttribute
             context.Result = new ObjectResult(msg);
         }
     }
-
 }

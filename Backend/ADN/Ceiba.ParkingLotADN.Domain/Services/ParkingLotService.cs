@@ -26,10 +26,10 @@ namespace Ceiba.ParkingLotADN.Domain.Services
         public async Task<ParkingLot> RegisterParkingLotAsync(ParkingLot parkingLot)
         {
             if (!parkingLot.IsVehicleAllowed())
-                throw new VehicleNotAllowed("You must register a valid vehicle type");
+                throw new VehicleNotAllowedException("You must register a valid vehicle type");
 
             if (!_picoPlacaContext.ValidatePicoPlaca(parkingLot.Plate, (VehicleType)parkingLot.VehicleType))
-                throw new PicoPlacaException("Your vehicle is not allowed due to 'pico y placa' rule");
+                throw new PicoPlacaExceptionException("Your vehicle is not allowed due to 'pico y placa' rule");
 
             var vehicleRegistered = await _repository.GetAsync(x => x.Plate.Equals(parkingLot.Plate) && x.Status);
             if (vehicleRegistered.Any())
@@ -53,7 +53,7 @@ namespace Ceiba.ParkingLotADN.Domain.Services
             var parkingLot = await _repository.GetByIdAsync(id);
             if (parkingLot == null || !parkingLot.Status)
             {
-                throw new NonExistentVehicle("This vehicle is not in the parking lot");
+                throw new NonExistentVehicleException("This vehicle is not in the parking lot");
             }
             parkingLot.FinishedAt = DateTime.Now;
             parkingLot.Status = false;
@@ -65,7 +65,7 @@ namespace Ceiba.ParkingLotADN.Domain.Services
         {
             var parkingLot = await _repository.GetByIdAsync(id);
             if (parkingLot == null || !parkingLot.Status)
-                throw new NonExistentVehicle("This vehicle is not in the parking lot");
+                throw new NonExistentVehicleException("This vehicle is not in the parking lot");
             return _chargerContext.CalculateCharge((int)Math.Truncate((DateTime.Now - parkingLot.StartedAt).TotalHours), parkingLot.Cylinder, (VehicleType)parkingLot.VehicleType);
         }
     }

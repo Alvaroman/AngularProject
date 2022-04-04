@@ -6,6 +6,7 @@ using Ceiba.ParkingLotADN.Domain.Services.ParkingPicoPlacaState;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Ceiba.ParkingLotADN.Domain.Tests.ParkingLot
@@ -27,7 +28,7 @@ namespace Ceiba.ParkingLotADN.Domain.Tests.ParkingLot
         }
 
         [TestMethod]
-        public async Task FailToRegisterAnNotAllowedVehicle()
+        public async Task FailToRegisterAnNotAllowedVehicleAsync()
         {
             try
             {
@@ -41,11 +42,11 @@ namespace Ceiba.ParkingLotADN.Domain.Tests.ParkingLot
             }
             catch (System.Exception ex)
             {
-                Assert.IsTrue(ex is VehicleNotAllowed);
+                Assert.IsTrue(ex is VehicleNotAllowedException);
             }
         }
         [TestMethod]
-        public async Task FailToRegisterMotorcyclePicoPlaca()
+        public async Task FailToRegisterMotorcyclePicoPlacaAsync()
         {
             try
             {
@@ -59,11 +60,11 @@ namespace Ceiba.ParkingLotADN.Domain.Tests.ParkingLot
             }
             catch (System.Exception ex)
             {
-                Assert.IsTrue(ex is PicoPlacaException);
+                Assert.IsTrue(ex is PicoPlacaExceptionException);
             }
         }
         [TestMethod]
-        public async Task FailToRegisterCarPicoPlaca()
+        public async Task FailToRegisterCarPicoPlacaAsync()
         {
             try
             {
@@ -77,11 +78,11 @@ namespace Ceiba.ParkingLotADN.Domain.Tests.ParkingLot
             }
             catch (System.Exception ex)
             {
-                Assert.IsTrue(ex is PicoPlacaException);
+                Assert.IsTrue(ex is PicoPlacaExceptionException);
             }
         }
         [TestMethod]
-        public async Task SuccessToRegisterParkingLot()
+        public async Task SuccessToRegisterParkingLotAsync()
         {
             Ceiba.ParkingLotADN.Domain.Entities.ParkingLot parkingLot = new ParkingLotDataBuilder()
                     .WithCylinder(1600)
@@ -107,6 +108,18 @@ namespace Ceiba.ParkingLotADN.Domain.Tests.ParkingLot
         {
             var cost = _chargerContext.CalculateCharge(10, 650, Enums.VehicleType.Motorcycle);
             Assert.IsTrue(6000 == cost);
+        }
+        [TestMethod]
+        public async Task FailToObtainParkingLotVehicleAsync()
+        {
+            var parkingLotNull = await _parkingLotRepository.GetByIdAsync("-1");
+            Assert.IsTrue(parkingLotNull is null);
+        }
+        [TestMethod]
+        public async Task FailToObtainParkingLotVehicleListAsync()
+        {
+            var parkingLotListNull = await _parkingLotRepository.GetAsync(x => x.VehicleType == -1);
+            Assert.IsTrue(!parkingLotListNull.Any());
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Ceiba.ParkingLotADN.Domain.Services.ParkingPicoPlacaState
             {
                 VehicleType.Car => new CarPicoPlaca(),
                 VehicleType.Motorcycle => new MotorciclePicoPlaca(),
-                _ => throw new VehicleNotAllowed("This vehicle type is not considered")
+                _ => throw new VehicleNotAllowedException("This vehicle type is not considered")
             };
             return this.State.PicoPlacaValidator(plate);
         }

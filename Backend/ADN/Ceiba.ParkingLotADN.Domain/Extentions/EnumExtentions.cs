@@ -5,8 +5,8 @@ namespace Ceiba.ParkingLotADN.Domain.Extentions
 {
     public static class EnumExtentions
     {
-        private static int CAR_CAPACITY = 6;
-        private static int MOTORCYCLE_CAPACITY = 6;
+        private static int CAR_CAPACITY = 20;
+        private static int MOTORCYCLE_CAPACITY = 10;
 
         public static int GetParkingCapacity(this System.Enum value)
         {
@@ -15,7 +15,7 @@ namespace Ceiba.ParkingLotADN.Domain.Extentions
                 case VehicleType.Car: return CAR_CAPACITY;
                 case VehicleType.Motorcycle: return MOTORCYCLE_CAPACITY;
                 default:
-                    throw new VehicleNotAllowed("This vehicle type is not considered");
+                    throw new VehicleNotAllowedException("This vehicle type is not considered");
             }
         }
     }
