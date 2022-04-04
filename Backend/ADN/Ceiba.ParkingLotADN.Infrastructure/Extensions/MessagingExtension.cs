@@ -1,5 +1,4 @@
 using System.Globalization;
-using Ceiba.ParkingLotADN.Application.Ports;
 using Ceiba.ParkingLotADN.Infrastructure.Adapters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,8 +33,6 @@ public static class MessagingExtension
         {
             return factory.CreateConnection($"{config.GetValue<string>("AppName") ?? "MyApp"}_READ");
         });
-
-        services.AddTransient<IMessaging, Messaging>();
 
         return services;
     }

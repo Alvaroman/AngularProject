@@ -19,4 +19,8 @@
     <ProjectReference Include="..\Ceiba.ParkingLotADN.Domain\Ceiba.ParkingLotADN.Domain.csproj" />    
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Ports\" />
+  </ItemGroup>
+
 </Project>
