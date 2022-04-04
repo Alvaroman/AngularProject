@@ -19,16 +19,16 @@ namespace Ceiba.ParkingLotADN.Api.Tests
         }
 
         [Fact]
-        public async Task PostPersonSuccess()
+        public async Task PostPersonFailure()
         {
             var postContent = new Ceiba.ParkingLotADN.Application.ParkingLot.Commands.ParkingLotCreateCommand
             (
-               1, "abc-999", DateTime.Now, 2000
+               3, "abc-999", new System.DateTime(year: 2022, month: 03, day: 20), 2000
             );
             var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(postContent), System.Text.Encoding.UTF8, "text/json");
             var c = await _client.PostAsync("api/Parking", content);
-            c.EnsureSuccessStatusCode();
-            Assert.Equal(HttpStatusCode.OK, c.StatusCode);
+            Assert.Throws<System.Net.Http.HttpRequestException>(() => c.EnsureSuccessStatusCode());
+
         }
 
 
