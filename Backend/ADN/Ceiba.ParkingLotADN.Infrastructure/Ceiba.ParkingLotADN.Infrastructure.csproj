@@ -3,7 +3,10 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable> 
+    <Nullable>enable</Nullable>
+	  <ProjectGuid>
+		  8c311875-65f4-4636-b7e8-e96b5d98b60c
+	  </ProjectGuid>
   </PropertyGroup>
 
   <ItemGroup>

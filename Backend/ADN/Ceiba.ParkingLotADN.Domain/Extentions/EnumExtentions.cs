@@ -5,8 +5,8 @@ namespace Ceiba.ParkingLotADN.Domain.Extentions
 {
     public static class EnumExtentions
     {
-        private static int CAR_CAPACITY = 20;
-        private static int MOTORCYCLE_CAPACITY = 10;
+        private static int CAR_CAPACITY = 6;
+        private static int MOTORCYCLE_CAPACITY = 6;
 
         public static int GetParkingCapacity(this System.Enum value)
         {

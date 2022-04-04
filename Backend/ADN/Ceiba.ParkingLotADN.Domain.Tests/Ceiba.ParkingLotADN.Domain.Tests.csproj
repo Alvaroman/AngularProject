@@ -5,6 +5,9 @@
     <Nullable>enable</Nullable>    
 
     <IsPackable>false</IsPackable>
+	  <ProjectGuid>
+		  404f7ee4-4aa2-4e58-a9b8-88a6fe839894
+	  </ProjectGuid>
   </PropertyGroup>
 
   <ItemGroup>
