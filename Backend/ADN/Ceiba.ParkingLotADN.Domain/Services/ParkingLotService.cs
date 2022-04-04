@@ -26,26 +26,35 @@ namespace Ceiba.ParkingLotADN.Domain.Services
         public async Task<ParkingLot> RegisterParkingLotAsync(ParkingLot parkingLot)
         {
             if (!parkingLot.IsVehicleAllowed())
+            {
                 throw new VehicleNotAllowedException("You must register a valid vehicle type");
-
+            }
             if (!_picoPlacaContext.ValidatePicoPlaca(parkingLot.Plate, (VehicleType)parkingLot.VehicleType))
+            {
                 throw new PicoPlacaExceptionException("Your vehicle is not allowed due to 'pico y placa' rule");
-
+            }
             var vehicleRegistered = await _repository.GetAsync(x => x.Plate.Equals(parkingLot.Plate) && x.Status);
             if (vehicleRegistered.Any())
+            {
                 throw new AlreadyRegisteredException("The vehicle is already at the parking lot");
-
+            }
             var vehiclesInUse = await _repository.GetAsync(x => x.Status && x.VehicleType == parkingLot.VehicleType);
             if (vehiclesInUse != null && vehiclesInUse.Any())
             {
                 int maxCapacity = ((VehicleType)parkingLot.VehicleType).GetParkingCapacity();
                 if (vehiclesInUse.Count() < maxCapacity)
+                {
                     return await _repository.AddAsync(parkingLot);
+                }
                 else
+                {
                     throw new FullCapacityException("There is no space available for this vehicle type");
+                }
             }
             else
+            {
                 return await _repository.AddAsync(parkingLot);
+            }
         }
 
         public async Task<decimal> ReleaseParkingLotAsync(Guid id)
@@ -65,7 +74,9 @@ namespace Ceiba.ParkingLotADN.Domain.Services
         {
             var parkingLot = await _repository.GetByIdAsync(id);
             if (parkingLot == null || !parkingLot.Status)
+            {
                 throw new NonExistentVehicleException("This vehicle is not in the parking lot");
+            }
             return _chargerContext.CalculateCharge((int)Math.Truncate((DateTime.Now - parkingLot.StartedAt).TotalHours), parkingLot.Cylinder, (VehicleType)parkingLot.VehicleType);
         }
     }

@@ -10,8 +10,7 @@
                 int numberToValidate = Convert.ToInt16(plate.Substring(plate.Length - 3, 1));
                 return !currentRestrictions.Contains(numberToValidate);
             }
-            else
-                return true;
+            return true;
         }
     }
 }

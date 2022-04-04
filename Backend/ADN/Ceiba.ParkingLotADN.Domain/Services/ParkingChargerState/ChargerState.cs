@@ -2,6 +2,8 @@
 {
     public abstract class ChargerState
     {
+        const int DAY_DIVIDOR = 9;
+        const int HOUR_PER_DAY = 24;
         protected abstract decimal HourCharge { get; set; }
         protected abstract decimal DayCharge { get; set; }
         protected abstract bool CylinderRestriction { get; set; }
@@ -11,21 +13,26 @@
         public virtual decimal Calculate(int spentHours, int cylinder)
         {
             decimal charge = 0;
-            if (spentHours < 9)
+            if (spentHours < DAY_DIVIDOR)
+            {
                 charge = spentHours * HourCharge;
+            }
             else
             {
                 do
                 {
                     charge += DayCharge;
-                    spentHours -= 24;
-                } while (spentHours / 24 >= 1);
+                    spentHours -= HOUR_PER_DAY;
+                } while (spentHours / HOUR_PER_DAY >= 1);
                 if (spentHours > 0)
+                {
                     charge += spentHours * HourCharge;
+                }
             }
             if (CylinderRestriction && cylinder >= CylinderLimit)
+            {
                 charge += CylinderOverCharge;
-
+            }
             return charge;
         }
     }
