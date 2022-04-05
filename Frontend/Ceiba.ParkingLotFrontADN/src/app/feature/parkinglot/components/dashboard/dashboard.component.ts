@@ -1,21 +1,21 @@
-import { Component, OnInit } from "@angular/core";
-import { Parkinglot } from "../../shared/model/parkinglot";
-import { ParkinglotService } from "../../shared/service/parkintlot.service";
+import { Component, OnInit } from '@angular/core';
+import { Parkinglot } from '../../shared/model/parkinglot';
+import { ParkinglotService } from '../../shared/service/parkintlot.service';
 
 @Component({
-  selector: "app-dashboard",
-  templateUrl: "./dashboard.component.html",
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
   styles: [],
 })
 export class DashboardComponent implements OnInit {
   single: any[];
   multi: any[];
-  viewLine: [number, number] = [1200, 500];
-  viewPie: [number, number] = [600, 305];
+  viewLine = [1200, 500];
+  viewPie = [600, 305];
   carDayAverage = 0;
   motorcycleDayAverage = 0;
   colorScheme = {
-    domain: ["#770A0A", "#40770A"],
+    domain: ['#770A0A', '#40770A'],
   };
 
   // options
@@ -30,16 +30,13 @@ export class DashboardComponent implements OnInit {
   yAxis = true;
   showYAxisLabel = true;
   showXAxisLabel = true;
-  xAxisLabel = "Date";
-  yAxisLabel = "Quantity";
+  xAxisLabel = 'Date';
+  yAxisLabel = 'Quantity';
   timeline = true;
 
   public parkingLots: Parkinglot[] = [];
 
-  constructor(protected HomeService: ParkinglotService) {
-    this.viewLine = [1200, 500];
-    this.viewPie = [600, 305];
-  }
+  constructor(protected HomeService: ParkinglotService) {}
 
   ngOnInit(): void {
     this.HomeService.get().subscribe((resp) => {
@@ -81,13 +78,13 @@ export class DashboardComponent implements OnInit {
       (this.carDayAverage / carDates.size).toFixed(2)
     );
     if (this.multi) {
-      this.multi.push({ name: "Cars", series: carsSeries });
+      this.multi.push({ name: 'Cars', series: carsSeries });
     } else {
-      this.multi = [{ name: "Cars", series: carsSeries }];
+      this.multi = [{ name: 'Cars', series: carsSeries }];
     }
     if (this.single) {
       this.single.push({
-        name: "Cars",
+        name: 'Cars',
         value: this.parkingLots.filter(
           (vehicle) => vehicle.status && vehicle.vehicleType === CAR
         ).length,
@@ -95,7 +92,7 @@ export class DashboardComponent implements OnInit {
     } else {
       this.single = [
         {
-          name: "Cars",
+          name: 'Cars',
           value: this.parkingLots.filter(
             (vehicle) => vehicle.status && vehicle.vehicleType === CAR
           ).length,
@@ -131,9 +128,9 @@ export class DashboardComponent implements OnInit {
       (this.motorcycleDayAverage / motorcycleDates.size).toFixed(2)
     );
 
-    this.multi.push({ name: "Motorcycles", series: motorcycleSeries });
+    this.multi.push({ name: 'Motorcycles', series: motorcycleSeries });
     this.single.push({
-      name: "Motorcycles",
+      name: 'Motorcycles',
       value: this.parkingLots.filter(
         (vehicle) => vehicle.status && vehicle.vehicleType === MOTORCYCLE
       ).length,
