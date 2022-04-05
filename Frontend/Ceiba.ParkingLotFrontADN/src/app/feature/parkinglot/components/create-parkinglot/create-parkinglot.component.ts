@@ -31,27 +31,25 @@ export class CreateParkinglotComponent implements OnInit {
     });
   }
   getStartedAtDatePart(id: string) {
-    let parkingLotValue = this.parkingLots.find((x) => x.id == id);
-    return parkingLotValue != undefined
+    let parkingLotValue = this.parkingLots.find((x) => x.id === id);
+    return parkingLotValue !== undefined
       ? new Date(parkingLotValue?.startedAt).toLocaleTimeString()
       : '';
   }
   getStartedAtHourPart(id: string) {
-    let parkingLotValue = this.parkingLots.find((x) => x.id == id);
-    return parkingLotValue != undefined
+    let parkingLotValue = this.parkingLots.find((x) => x.id === id);
+    return parkingLotValue !== undefined
       ? new Date(parkingLotValue?.startedAt).toLocaleDateString()
       : '';
   }
   onSubmit() {
     this.service.create(this.parkinglotForm.value).subscribe(
-      (resp) => { 
-        console.log(resp);
+      () => { 
         this.toastr.success('Vehicle registered correctly!');
         this.buildParkingLotForm();
         this.getParkingLotData();
       },
       (err) => {
-        console.log(err);
         this.toastr.error(err.error.message);
       }
     );
@@ -59,7 +57,6 @@ export class CreateParkinglotComponent implements OnInit {
   onRelease(id: string) {
     this.service.release(id).subscribe(
       (resp) => {
-        console.log(resp);
         this.getParkingLotData();
         this.toastr.success(
           `Vehicle released correctly. The charge is '${resp}'.`,
@@ -71,7 +68,6 @@ export class CreateParkinglotComponent implements OnInit {
         );
       },
       (err) => {
-        console.log(err);
         this.toastr.error(err.error.message);
       }
     );
@@ -86,7 +82,6 @@ export class CreateParkinglotComponent implements OnInit {
         });
       },
       (err) => {
-        console.log(err);
         this.toastr.error(err.error.message);
       }
     );
