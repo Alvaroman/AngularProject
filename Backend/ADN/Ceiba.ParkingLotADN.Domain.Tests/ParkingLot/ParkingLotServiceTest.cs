@@ -89,7 +89,7 @@ namespace Ceiba.ParkingLotADN.Domain.Tests.ParkingLot
                     .WithCylinder(1600)
                     .WithVehicleType(1)
                     .WithStartAt(new System.DateTime(year: 2022, month: 03, day: 20))
-                    .WithPlate("abc-123")
+                    .WithPlate("abc-129")
                     .WithStaus(false).Build();
 
             _parkingLotRepository.AddAsync(Arg.Any<Ceiba.ParkingLotADN.Domain.Entities.ParkingLot>()).Returns(Task.FromResult(parkingLot));
@@ -149,7 +149,7 @@ namespace Ceiba.ParkingLotADN.Domain.Tests.ParkingLot
                                 .WithCylinder(1600)
                                 .WithVehicleType(1)
                                 .WithStartAt(new System.DateTime(year: 2022, month: 03, day: 20))
-                                .WithPlate("abc-123")
+                                .WithPlate("abc-129")
                                 .WithStaus(false).Build();
 
                 _parkingLotRepository.AddAsync(Arg.Any<Ceiba.ParkingLotADN.Domain.Entities.ParkingLot>()).Returns(Task.FromResult(parkingLot));
