@@ -60,12 +60,21 @@ namespace Ceiba.ParkingLotADN.Api.Tests
             var c = await _client.GetAsync($"api/Parking/{Guid.NewGuid()}/cost");
             Assert.Throws<System.Net.Http.HttpRequestException>(() => c.EnsureSuccessStatusCode());
         }
-        [Fact]
         public async Task ReleaseParkingLotFailureAsync()
         {
             var c = await _client.PutAsync($"api/Parking/{Guid.NewGuid()}/release", null);
             Assert.Throws<System.Net.Http.HttpRequestException>(() => c.EnsureSuccessStatusCode());
         }
-
+        [Fact]
+        public async Task FailToRegisterServerErrorAsync()
+        {
+            var postContent = new Ceiba.ParkingLotADN.Application.ParkingLot.Commands.ParkingLotCreateCommand
+            (
+                3, "abcx-9999", new System.DateTime(year: 2022, month: 03, day: 20), 2000
+            );
+            var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(postContent), System.Text.Encoding.UTF8, "text/json");
+            var c = await _client.PostAsync("api/Parking", content);
+            Assert.Throws<System.Net.Http.HttpRequestException>(() => c.EnsureSuccessStatusCode());
+        }
     }
 }

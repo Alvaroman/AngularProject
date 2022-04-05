@@ -129,6 +129,12 @@ namespace Ceiba.ParkingLotADN.Domain.Tests.ParkingLot
             Assert.IsTrue(parkingLotNull is null);
         }
         [TestMethod]
+        public async Task SuccessToObtainParkingLotsAsync()
+        {
+            var parkingLotNull = await _parkingLotRepository.GetAsync(orderBy: x => x.OrderBy(y => y.StartedAt));
+            Assert.IsTrue(!parkingLotNull.Any());
+        }
+        [TestMethod]
         public async Task FailToObtainParkingLotVehicleListAsync()
         {
             var parkingLotListNull = await _parkingLotRepository.GetAsync(x => x.VehicleType == -1);
@@ -186,5 +192,6 @@ namespace Ceiba.ParkingLotADN.Domain.Tests.ParkingLot
                 Assert.IsTrue(ex is AppException);
             }
         }
+      
     }
 }
