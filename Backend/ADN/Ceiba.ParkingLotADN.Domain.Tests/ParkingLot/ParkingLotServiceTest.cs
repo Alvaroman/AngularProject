@@ -199,9 +199,9 @@ namespace Ceiba.ParkingLotADN.Domain.Tests.ParkingLot
             {
                 Ceiba.ParkingLotADN.Domain.Entities.ParkingLot parkingLotNowAllowed = new ParkingLotDataBuilder()
                   .WithCylinder(1800)
-                  .WithVehicleType(3)
-                  .WithStartAt(new System.DateTime(year: 2022, month: 03, day: 21))
-                  .WithPlate("abc-123")
+                  .WithVehicleType(1)
+                  .WithStartAt(DateTime.Now)
+                  .WithPlate("abc-323")
                   .WithStaus(false).Build();
                 await _parkingLotService.RegisterParkingLotAsync(parkingLotNowAllowed);
             }
