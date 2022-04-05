@@ -1,4 +1,5 @@
 ﻿using Ceiba.ParkingLotADN.Domain.Exception;
+using Ceiba.ParkingLotADN.Domain.Extentions;
 using Ceiba.ParkingLotADN.Domain.Ports;
 using Ceiba.ParkingLotADN.Domain.Services;
 using Ceiba.ParkingLotADN.Domain.Services.ParkingChargerState;
@@ -104,6 +105,18 @@ namespace Ceiba.ParkingLotADN.Domain.Tests.ParkingLot
             Assert.IsTrue(11000 == cost);
         }
         [TestMethod]
+        public void SuccessToObtainCarQuantityCapacity()
+        {
+            var quantity = Enums.VehicleType.Car.GetParkingCapacity();
+            Assert.IsTrue(quantity >= 0);
+        }
+        [TestMethod]
+        public void SuccessToObtainMotorcycleQuantityCapacity()
+        {
+            var quantity = Enums.VehicleType.Motorcycle.GetParkingCapacity();
+            Assert.IsTrue(quantity >= 0);
+        }
+        [TestMethod]
         public void SuccessToObtainCostMotorcycle()
         {
             var cost = _chargerContext.CalculateCharge(10, 650, Enums.VehicleType.Motorcycle);
@@ -148,7 +161,7 @@ namespace Ceiba.ParkingLotADN.Domain.Tests.ParkingLot
         {
             try
             {
-                await _parkingLotService.ReleaseParkingLotAsync(Guid.NewGuid());       
+                await _parkingLotService.ReleaseParkingLotAsync(Guid.NewGuid());
             }
             catch (System.Exception ex)
             {
