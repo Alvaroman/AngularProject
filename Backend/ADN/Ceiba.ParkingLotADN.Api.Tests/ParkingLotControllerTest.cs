@@ -66,5 +66,6 @@ namespace Ceiba.ParkingLotADN.Api.Tests
             var c = await _client.PutAsync($"api/Parking/{Guid.NewGuid()}/release", null);
             Assert.Throws<System.Net.Http.HttpRequestException>(() => c.EnsureSuccessStatusCode());
         }
+
     }
 }

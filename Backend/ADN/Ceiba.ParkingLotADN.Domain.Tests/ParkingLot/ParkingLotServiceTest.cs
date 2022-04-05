@@ -148,7 +148,7 @@ namespace Ceiba.ParkingLotADN.Domain.Tests.ParkingLot
         {
             try
             {
-                await _parkingLotService.ReleaseParkingLotAsync(Guid.NewGuid());
+                await _parkingLotService.ReleaseParkingLotAsync(Guid.NewGuid());       
             }
             catch (System.Exception ex)
             {
@@ -156,21 +156,22 @@ namespace Ceiba.ParkingLotADN.Domain.Tests.ParkingLot
             }
         }
         [TestMethod]
-        public async Task SuccessToReleaseVehicleAsync()
+        public async Task FailSaveParkingLotAppExceptionAsync()
         {
-            Ceiba.ParkingLotADN.Domain.Entities.ParkingLot parkingLot = new ParkingLotDataBuilder()
-                 .WithCylinder(1600)
-                 .WithVehicleType(1)
-                 .WithStartAt(new System.DateTime(year: 2022, month: 03, day: 20))
-                 .WithPlate("abc-123")
-                 .WithStaus(false).Build();
-
-            _parkingLotRepository.AddAsync(Arg.Any<Ceiba.ParkingLotADN.Domain.Entities.ParkingLot>()).Returns(Task.FromResult(parkingLot));
-
-            var result = await _parkingLotService.RegisterParkingLotAsync(parkingLot);
-
-            var cost = await _parkingLotService.ReleaseParkingLotAsync(result.Id);
-            Assert.IsTrue(cost >= 0);
+            try
+            {
+                Ceiba.ParkingLotADN.Domain.Entities.ParkingLot parkingLotNowAllowed = new ParkingLotDataBuilder()
+                  .WithCylinder(1800)
+                  .WithVehicleType(3)
+                  .WithStartAt(new System.DateTime(year: 2022, month: 03, day: 21))
+                  .WithPlate("abc-126")
+                  .WithStaus(false).Build();
+                await _parkingLotService.RegisterParkingLotAsync(parkingLotNowAllowed);
+            }
+            catch (System.Exception ex)
+            {
+                Assert.IsTrue(ex is AppException);
+            }
         }
     }
 }
