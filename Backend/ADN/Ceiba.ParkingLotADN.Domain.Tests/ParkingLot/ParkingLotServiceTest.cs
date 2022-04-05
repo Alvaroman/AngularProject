@@ -60,7 +60,7 @@ namespace Ceiba.ParkingLotADN.Domain.Tests.ParkingLot
             }
             catch (System.Exception ex)
             {
-                Assert.IsTrue(ex is PicoPlacaExceptionException);
+                Assert.IsTrue(ex is PicoPlacaException);
             }
         }
         [TestMethod]
@@ -78,7 +78,7 @@ namespace Ceiba.ParkingLotADN.Domain.Tests.ParkingLot
             }
             catch (System.Exception ex)
             {
-                Assert.IsTrue(ex is PicoPlacaExceptionException);
+                Assert.IsTrue(ex is PicoPlacaException);
             }
         }
         [TestMethod]
@@ -120,6 +120,40 @@ namespace Ceiba.ParkingLotADN.Domain.Tests.ParkingLot
         {
             var parkingLotListNull = await _parkingLotRepository.GetAsync(x => x.VehicleType == -1);
             Assert.IsTrue(!parkingLotListNull.Any());
+        }
+        [TestMethod]
+        public async Task FailToRegisterDuplicatedVehicleAsync()
+        {
+            try
+            {
+                Ceiba.ParkingLotADN.Domain.Entities.ParkingLot parkingLot = new ParkingLotDataBuilder()
+                                .WithCylinder(1600)
+                                .WithVehicleType(1)
+                                .WithStartAt(new System.DateTime(year: 2022, month: 03, day: 20))
+                                .WithPlate("abc-123")
+                                .WithStaus(false).Build();
+
+                _parkingLotRepository.AddAsync(Arg.Any<Ceiba.ParkingLotADN.Domain.Entities.ParkingLot>()).Returns(Task.FromResult(parkingLot));
+                await _parkingLotService.RegisterParkingLotAsync(parkingLot);
+                await _parkingLotService.RegisterParkingLotAsync(parkingLot);
+            }
+            catch (System.Exception ex)
+            {
+                Assert.IsTrue(ex is AlreadyRegisteredException);
+            }
+        }
+
+        [TestMethod]
+        public async Task FailToReleaseParkingLotAsync()
+        {
+            try
+            {
+                await _parkingLotService.ReleaseParkingLotAsync(Guid.NewGuid());       
+            }
+            catch (System.Exception ex)
+            {
+                Assert.IsTrue(ex is NonExistentVehicleException);
+            }
         }
     }
 }

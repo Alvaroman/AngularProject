@@ -31,7 +31,7 @@ namespace Ceiba.ParkingLotADN.Domain.Services
             }
             if (!_picoPlacaContext.ValidatePicoPlaca(parkingLot.Plate, (VehicleType)parkingLot.VehicleType))
             {
-                throw new PicoPlacaExceptionException("Your vehicle is not allowed due to 'pico y placa' rule");
+                throw new PicoPlacaException("Your vehicle is not allowed due to 'pico y placa' rule");
             }
             var vehicleRegistered = await _repository.GetAsync(x => x.Plate.Equals(parkingLot.Plate) && x.Status);
             if (vehicleRegistered.Any())
