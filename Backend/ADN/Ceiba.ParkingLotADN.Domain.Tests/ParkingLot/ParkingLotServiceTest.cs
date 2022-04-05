@@ -142,7 +142,6 @@ namespace Ceiba.ParkingLotADN.Domain.Tests.ParkingLot
                 Assert.IsTrue(ex is AlreadyRegisteredException);
             }
         }
-
         [TestMethod]
         public async Task FailToReleaseParkingLotAsync()
         {

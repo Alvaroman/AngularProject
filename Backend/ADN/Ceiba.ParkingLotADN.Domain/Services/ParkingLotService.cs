@@ -66,7 +66,8 @@ namespace Ceiba.ParkingLotADN.Domain.Services
             }
             parkingLot.FinishedAt = DateTime.Now;
             parkingLot.Status = false;
-            decimal cost = _chargerContext.CalculateCharge((int)Math.Truncate((parkingLot.FinishedAt.Value - parkingLot.StartedAt).TotalHours), parkingLot.Cylinder, (VehicleType)parkingLot.VehicleType);
+            int hours = (int)Math.Truncate((parkingLot.FinishedAt.Value - parkingLot.StartedAt).TotalHours);
+            decimal cost = _chargerContext.CalculateCharge(hours, parkingLot.Cylinder, (VehicleType)parkingLot.VehicleType);
             await _repository.UpdateAsync(parkingLot);
             return cost;
         }
