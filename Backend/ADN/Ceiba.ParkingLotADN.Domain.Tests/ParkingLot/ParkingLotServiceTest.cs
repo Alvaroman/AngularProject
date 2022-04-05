@@ -192,6 +192,23 @@ namespace Ceiba.ParkingLotADN.Domain.Tests.ParkingLot
                 Assert.IsTrue(ex is AppException);
             }
         }
-      
+        [TestMethod]
+        public async Task FailSaveParkingLotPicoPlacaExceptionAsync()
+        {
+            try
+            {
+                Ceiba.ParkingLotADN.Domain.Entities.ParkingLot parkingLotNowAllowed = new ParkingLotDataBuilder()
+                  .WithCylinder(1800)
+                  .WithVehicleType(3)
+                  .WithStartAt(new System.DateTime(year: 2022, month: 03, day: 21))
+                  .WithPlate("abc-123")
+                  .WithStaus(false).Build();
+                await _parkingLotService.RegisterParkingLotAsync(parkingLotNowAllowed);
+            }
+            catch (System.Exception ex)
+            {
+                Assert.IsTrue(ex is PicoPlacaException);
+            }
+        }
     }
 }
