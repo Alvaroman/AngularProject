@@ -60,9 +60,10 @@ namespace Ceiba.ParkingLotADN.Api.Tests
             var c = await _client.GetAsync($"api/Parking/{Guid.NewGuid()}/cost");
             Assert.Throws<System.Net.Http.HttpRequestException>(() => c.EnsureSuccessStatusCode());
         }
+        [Fact]
         public async Task ReleaseParkingLotFailureAsync()
         {
-            var c = await _client.PutAsync($"api/Parking/{Guid.NewGuid()}/release", null);
+            var c = await _client.PutAsync($"api/parking/{Guid.NewGuid()}/release", null);
             Assert.Throws<System.Net.Http.HttpRequestException>(() => c.EnsureSuccessStatusCode());
         }
         [Fact]
