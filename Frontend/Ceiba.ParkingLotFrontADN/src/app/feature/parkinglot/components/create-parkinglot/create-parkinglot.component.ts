@@ -34,13 +34,13 @@ export class CreateParkinglotComponent implements OnInit {
     let parkingLotValue = this.parkingLots.find((x) => x.id == id);
     return parkingLotValue != undefined
       ? new Date(parkingLotValue?.startedAt).toLocaleTimeString()
-      : "";
+      : '';
   }
   getStartedAtHourPart(id: string) {
     let parkingLotValue = this.parkingLots.find((x) => x.id == id);
     return parkingLotValue != undefined
       ? new Date(parkingLotValue?.startedAt).toLocaleDateString()
-      : "";
+      : '';
   }
   onSubmit() {
     this.service.create(this.parkinglotForm.value).subscribe(
@@ -93,10 +93,10 @@ export class CreateParkinglotComponent implements OnInit {
   }
   private buildParkingLotForm() {
     this.parkinglotForm = new FormGroup({
-      id: new FormControl(""),
-      cylinder: new FormControl("", [Validators.required]),
-      plate: new FormControl("", [Validators.required]),
-      vehicleType: new FormControl("", [Validators.required]),
+      id: new FormControl(''),
+      cylinder: new FormControl('', [Validators.required]),
+      plate: new FormControl('', [Validators.required]),
+      vehicleType: new FormControl('', [Validators.required]),
     });
   }
 }

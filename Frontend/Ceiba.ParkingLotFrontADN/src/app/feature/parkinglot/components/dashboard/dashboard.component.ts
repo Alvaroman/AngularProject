@@ -12,26 +12,26 @@ export class DashboardComponent implements OnInit {
   multi: any[];
   viewLine: [number, number] = [1200, 500];
   viewPie: [number, number] = [600, 305];
-  carDayAverage: number = 0;
-  motorcycleDayAverage: number = 0;
+  carDayAverage = 0;
+  motorcycleDayAverage = 0;
   colorScheme = {
     domain: ["#770A0A", "#40770A"],
   };
   // options
-  gradient: boolean = true;
-  showLegend: boolean = true;
-  showLabels: boolean = true;
-  isDoughnut: boolean = false;
+  gradient = true;
+  showLegend = true;
+  showLabels = true;
+  isDoughnut = false;
 
-  legend: boolean = true;
-  animations: boolean = true;
-  xAxis: boolean = true;
-  yAxis: boolean = true;
-  showYAxisLabel: boolean = true;
-  showXAxisLabel: boolean = true;
-  xAxisLabel: string = "Date";
-  yAxisLabel: string = "Quantity";
-  timeline: boolean = true;
+  legend = true;
+  animations = true;
+  xAxis = true;
+  yAxis = true;
+  showYAxisLabel = true;
+  showXAxisLabel = true;
+  xAxisLabel = "Date";
+  yAxisLabel = "Quantity";
+  timeline = true;
 
   public parkingLots: Parkinglot[] = [];
 
@@ -56,14 +56,14 @@ export class DashboardComponent implements OnInit {
         .sort((a, b) => {
           return new Date(a.startedAt) > new Date(b.startedAt) ? 1 : -1;
         })
-        .filter((x) => x.vehicleType == 1)
+        .filter((x) => x.vehicleType === 1)
         .map((x) => new Date(x.startedAt).toLocaleDateString())
     );
     carDates.forEach((date) => {
       let count = this.parkingLots.filter(
         (x) =>
-          x.vehicleType == 1 &&
-          new Date(x.startedAt).toLocaleDateString() == date
+          x.vehicleType === 1 &&
+          new Date(x.startedAt).toLocaleDateString() === date
       ).length;
       carsSeries.push({
         name: date,
@@ -83,7 +83,7 @@ export class DashboardComponent implements OnInit {
       this.single.push({
         name: "Cars",
         value: this.parkingLots.filter(
-          (vehicle) => vehicle.status && vehicle.vehicleType == 1
+          (vehicle) => vehicle.status && vehicle.vehicleType === 1
         ).length,
       });
     } else {
@@ -91,7 +91,7 @@ export class DashboardComponent implements OnInit {
         {
           name: "Cars",
           value: this.parkingLots.filter(
-            (vehicle) => vehicle.status && vehicle.vehicleType == 1
+            (vehicle) => vehicle.status && vehicle.vehicleType === 1
           ).length,
         },
       ];
@@ -104,14 +104,14 @@ export class DashboardComponent implements OnInit {
         .sort((a, b) => {
           return new Date(a.startedAt) > new Date(b.startedAt) ? 1 : -1;
         })
-        .filter((x) => x.vehicleType == 2)
+        .filter((x) => x.vehicleType === 2)
         .map((x) => new Date(x.startedAt).toLocaleDateString())
     );
     motorcycleDates.forEach((date) => {
       let count = this.parkingLots.filter(
         (x) =>
-          x.vehicleType == 2 &&
-          new Date(x.startedAt).toLocaleDateString() == date
+          x.vehicleType === 2 &&
+          new Date(x.startedAt).toLocaleDateString() === date
       ).length;
       motorcycleSeries.push({
         name: date,
@@ -128,7 +128,7 @@ export class DashboardComponent implements OnInit {
     this.single.push({
       name: "Motorcycles",
       value: this.parkingLots.filter(
-        (vehicle) => vehicle.status && vehicle.vehicleType == 2
+        (vehicle) => vehicle.status && vehicle.vehicleType === 2
       ).length,
     });
   }

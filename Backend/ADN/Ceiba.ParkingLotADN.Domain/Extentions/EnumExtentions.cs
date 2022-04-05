@@ -13,9 +13,7 @@ namespace Ceiba.ParkingLotADN.Domain.Extentions
             switch (value)
             {
                 case VehicleType.Car: return CAR_CAPACITY;
-                case VehicleType.Motorcycle: return MOTORCYCLE_CAPACITY;
-                default:
-                    throw new VehicleNotAllowedException("This vehicle type is not considered");
+                default: return MOTORCYCLE_CAPACITY;
             }
         }
     }

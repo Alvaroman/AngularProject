@@ -28,7 +28,7 @@ describe("DashboardComponent", () => {
     let thisDay = new Date();
     app.parkingLots = [
       {
-        id: "",
+        id: '',
         vehicleType: 1,
         cylinder: 16000,
         finishedAt: thisDay,
@@ -37,7 +37,7 @@ describe("DashboardComponent", () => {
         status: true,
       },
       {
-        id: "",
+        id: '',
         vehicleType: 2,
         cylinder: 10000,
         finishedAt: thisDay,
@@ -66,7 +66,7 @@ describe("DashboardComponent", () => {
     let thisDay = new Date();
     app.parkingLots = [
       {
-        id: "",
+        id: '',
         vehicleType: 1,
         cylinder: 16000,
         finishedAt: thisDay,
@@ -75,7 +75,7 @@ describe("DashboardComponent", () => {
         status: true,
       },
       {
-        id: "",
+        id: '',
         vehicleType: 2,
         cylinder: 10000,
         finishedAt: thisDay,
