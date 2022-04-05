@@ -9,7 +9,12 @@
         protected abstract bool CylinderRestriction { get; set; }
         protected abstract decimal CylinderOverCharge { get; set; }
         protected abstract decimal CylinderLimit { get; set; }
-
+        /// <summary>
+        /// Calculate the cost to pay.
+        /// </summary>
+        /// <param name="spentHours">Spent hours as decimal.</param>
+        /// <param name="cylinder">Cylinder.</param>
+        /// <returns><see cref="decimal"/></returns>
         public virtual decimal Calculate(int spentHours, int cylinder)
         {
             decimal charge = 0;
