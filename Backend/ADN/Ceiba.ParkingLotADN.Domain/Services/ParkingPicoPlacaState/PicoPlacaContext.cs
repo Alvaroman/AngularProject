@@ -12,8 +12,7 @@ namespace Ceiba.ParkingLotADN.Domain.Services.ParkingPicoPlacaState
             this.State = vehicleType switch
             {
                 VehicleType.Car => new CarPicoPlaca(),
-                VehicleType.Motorcycle => new MotorciclePicoPlaca(),
-                _ => throw new VehicleNotAllowedException("This vehicle type is not considered")
+                _ => new MotorciclePicoPlaca(),
             };
             return this.State.PicoPlacaValidator(plate);
         }

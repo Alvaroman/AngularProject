@@ -12,8 +12,7 @@ namespace Ceiba.ParkingLotADN.Domain.Services.ParkingChargerState
             this.State = vehicleType switch
             {
                 VehicleType.Car => new CarCharger(),
-                VehicleType.Motorcycle => new MotorcycleCharger(),
-                _ => throw new VehicleNotAllowedException("This vehicle type is not considered")
+                _ => new MotorcycleCharger()
             };
             return this.State.Calculate(spentHours, cylinder);
         }
