@@ -23,15 +23,6 @@ namespace Ceiba.ParkingLotADN.Infrastructure.Adapters {
             return entity;
         }
 
-        public async Task DeleteAsync(E entity)
-        {
-            if (entity != null)
-            {
-                _context.Set<E>().Remove(entity);
-                await this.CommitAsync().ConfigureAwait(false);
-            }
-        }
-
         public async Task<IEnumerable<E>> GetAsync(Expression<Func<E, bool>>? filter = null, Func<IQueryable<E>, IOrderedQueryable<E>>? orderBy = null, string includeStringProperties = "", bool isTracking = false)
         {
              IQueryable<E> query = _context.Set<E>();

@@ -12,7 +12,7 @@ namespace Ceiba.ParkingLotADN.Application.Person.Commands
 
         protected override async Task Handle(ParkingLotCreateCommand request, CancellationToken cancellationToken)
         {
-            _ = new ArgumentNullException(nameof(request), "request object needed to handle this task");
+            _ = request ?? throw new ArgumentNullException(nameof(request), "request object needed to handle this task");
             var parkingLotModel = new Domain.Entities.ParkingLot
             {
                 Plate = request.Plate,

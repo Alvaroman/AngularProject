@@ -10,9 +10,10 @@ using Prometheus;
 using Serilog;
 using Serilog.Sinks.Elasticsearch;
 
+const string ORIGINS_ALLOWED_NAMES = "ParkingPoliciy";
+
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
-var originsAllowedName = "ParkingPoliciy";
 
 builder.Services.AddControllers(opts =>
 {
@@ -45,7 +46,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: originsAllowedName,
+    options.AddPolicy(name: ORIGINS_ALLOWED_NAMES,
                       builder =>
                       {
                           builder.WithOrigins(config.GetSection("AllowedOrigins").Get<string[]>()).AllowAnyHeader().AllowAnyMethod();
@@ -57,7 +58,7 @@ Log.Logger = new LoggerConfiguration().Enrich.FromLogContext()
     .CreateLogger();
 
 var app = builder.Build();
-app.UseCors(originsAllowedName);
+app.UseCors(ORIGINS_ALLOWED_NAMES);
 
 if (app.Environment.IsDevelopment())
 {

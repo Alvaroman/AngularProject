@@ -19,7 +19,7 @@ namespace Ceiba.ParkingLotADN.Api.Tests
         }
 
         [Fact]
-        public async Task PostPersonFailure()
+        public async Task PostParkingLotFailureAsync()
         {
             var postContent = new Ceiba.ParkingLotADN.Application.ParkingLot.Commands.ParkingLotCreateCommand
             (
@@ -28,12 +28,11 @@ namespace Ceiba.ParkingLotADN.Api.Tests
             var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(postContent), System.Text.Encoding.UTF8, "text/json");
             var c = await _client.PostAsync("api/Parking", content);
             Assert.Throws<System.Net.Http.HttpRequestException>(() => c.EnsureSuccessStatusCode());
-
         }
 
 
         [Fact]
-        public async Task GetParkingLotFailure()
+        public async Task GetParkingLotFailureAsync()
         {
             var c = await _client.GetAsync($"api/Parking/{Guid.NewGuid()}");
             c.EnsureSuccessStatusCode();
@@ -43,10 +42,19 @@ namespace Ceiba.ParkingLotADN.Api.Tests
         }
 
         [Fact]
-        public async Task GetParkingLotBadRequestFailure()
+        public async Task GetParkingLotBadRequestFailureAsync()
         {
             var c = await _client.GetAsync($"api/Parking/foobar");
             Assert.Throws<System.Net.Http.HttpRequestException>(() => c.EnsureSuccessStatusCode());
         }
+
+        [Fact]
+        public async Task GetParkingLotsSuccessAsync()
+        {
+            var c = await _client.GetAsync($"api/Parking");
+            c.EnsureSuccessStatusCode();
+            Assert.True(c.IsSuccessStatusCode);
+        }
+
     }
 }
