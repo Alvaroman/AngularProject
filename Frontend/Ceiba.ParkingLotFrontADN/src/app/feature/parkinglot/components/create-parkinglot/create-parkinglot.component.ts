@@ -1,13 +1,13 @@
-import { Component, OnInit } from "@angular/core";
-import { Parkinglot } from "../../shared/model/parkinglot";
-import { ParkinglotService } from "../../shared/service/parkintlot.service";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { ToastrService } from "ngx-toastr";
+import { Component, OnInit } from '@angular/core';
+import { Parkinglot } from '../../shared/model/parkinglot';
+import { ParkinglotService } from '../../shared/service/parkintlot.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: "app-create-parkinglot",
-  templateUrl: "./create-parkinglot.component.html",
-  styleUrls: ["./create-parkinglot.component.css"],
+  selector: 'app-create-parkinglot',
+  templateUrl: './create-parkinglot.component.html',
+  styleUrls: ['./create-parkinglot.component.css'],
 })
 export class CreateParkinglotComponent implements OnInit {
   parkingLots: Parkinglot[];
@@ -46,7 +46,7 @@ export class CreateParkinglotComponent implements OnInit {
     this.service.create(this.parkinglotForm.value).subscribe(
       (resp) => { 
         console.log(resp);
-        this.toastr.success("Vehicle registered correctly!");
+        this.toastr.success('Vehicle registered correctly!');
         this.buildParkingLotForm();
         this.getParkingLotData();
       },
@@ -62,8 +62,8 @@ export class CreateParkinglotComponent implements OnInit {
         console.log(resp);
         this.getParkingLotData();
         this.toastr.success(
-          `Vehicle released correctly. The charge is "${resp}".`,
-          "Vehicle released",
+          `Vehicle released correctly. The charge is '${resp}'.`,
+          'Vehicle released',
           {
             timeOut: 10000,
             progressBar: true,
@@ -80,7 +80,7 @@ export class CreateParkinglotComponent implements OnInit {
     this.service.getCost(id).subscribe(
       (resp) => {
         this.getParkingLotData();
-        this.toastr.info(`The charge is: "${resp}".`, "Charge request", {
+        this.toastr.info(`The charge is: '${resp}'.`, 'Charge request', {
           timeOut: 10000,
           progressBar: true,
         });
