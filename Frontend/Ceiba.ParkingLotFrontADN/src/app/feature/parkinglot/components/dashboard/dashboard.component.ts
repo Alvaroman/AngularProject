@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Parkinglot } from '../../shared/model/parkinglot';
-import { ParkinglotService } from '../../shared/service/parkintlot.service';
+import { Component, OnInit } from "@angular/core";
+import { Parkinglot } from "../../shared/model/parkinglot";
+import { ParkinglotService } from "../../shared/service/parkintlot.service";
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
+  selector: "app-dashboard",
+  templateUrl: "./dashboard.component.html",
   styles: [],
 })
 export class DashboardComponent implements OnInit {
@@ -15,8 +15,9 @@ export class DashboardComponent implements OnInit {
   carDayAverage = 0;
   motorcycleDayAverage = 0;
   colorScheme = {
-    domain: ['#770A0A', '#40770A'],
+    domain: ["#770A0A", "#40770A"],
   };
+
   // options
   gradient = true;
   showLegend = true;
@@ -29,13 +30,16 @@ export class DashboardComponent implements OnInit {
   yAxis = true;
   showYAxisLabel = true;
   showXAxisLabel = true;
-  xAxisLabel = 'Date';
-  yAxisLabel = 'Quantity';
+  xAxisLabel = "Date";
+  yAxisLabel = "Quantity";
   timeline = true;
 
   public parkingLots: Parkinglot[] = [];
 
-  constructor(protected HomeService: ParkinglotService) {}
+  constructor(protected HomeService: ParkinglotService) {
+    this.viewLine = [1200, 500];
+    this.viewPie = [600, 305];
+  }
 
   ngOnInit(): void {
     this.HomeService.get().subscribe((resp) => {
@@ -50,19 +54,21 @@ export class DashboardComponent implements OnInit {
     });
   }
   setCarData() {
+    const CAR = 1;
+
     let carsSeries: any[] = [];
     let carDates = new Set(
       this.parkingLots
         .sort((a, b) => {
           return new Date(a.startedAt) > new Date(b.startedAt) ? 1 : -1;
         })
-        .filter((x) => x.vehicleType === 1)
+        .filter((x) => x.vehicleType === CAR)
         .map((x) => new Date(x.startedAt).toLocaleDateString())
     );
     carDates.forEach((date) => {
       let count = this.parkingLots.filter(
         (x) =>
-          x.vehicleType === 1 &&
+          x.vehicleType === CAR &&
           new Date(x.startedAt).toLocaleDateString() === date
       ).length;
       carsSeries.push({
@@ -75,42 +81,43 @@ export class DashboardComponent implements OnInit {
       (this.carDayAverage / carDates.size).toFixed(2)
     );
     if (this.multi) {
-      this.multi.push({ name: 'Cars', series: carsSeries });
+      this.multi.push({ name: "Cars", series: carsSeries });
     } else {
-      this.multi = [{ name: 'Cars', series: carsSeries }];
+      this.multi = [{ name: "Cars", series: carsSeries }];
     }
     if (this.single) {
       this.single.push({
-        name: 'Cars',
+        name: "Cars",
         value: this.parkingLots.filter(
-          (vehicle) => vehicle.status && vehicle.vehicleType === 1
+          (vehicle) => vehicle.status && vehicle.vehicleType === CAR
         ).length,
       });
     } else {
       this.single = [
         {
-          name: 'Cars',
+          name: "Cars",
           value: this.parkingLots.filter(
-            (vehicle) => vehicle.status && vehicle.vehicleType === 1
+            (vehicle) => vehicle.status && vehicle.vehicleType === CAR
           ).length,
         },
       ];
     }
   }
   setMotorcycleData() {
+    const MOTORCYCLE = 2;
     let motorcycleSeries: any[] = [];
     let motorcycleDates = new Set(
       this.parkingLots
         .sort((a, b) => {
           return new Date(a.startedAt) > new Date(b.startedAt) ? 1 : -1;
         })
-        .filter((x) => x.vehicleType === 2)
+        .filter((x) => x.vehicleType === MOTORCYCLE)
         .map((x) => new Date(x.startedAt).toLocaleDateString())
     );
     motorcycleDates.forEach((date) => {
       let count = this.parkingLots.filter(
         (x) =>
-          x.vehicleType === 2 &&
+          x.vehicleType === MOTORCYCLE &&
           new Date(x.startedAt).toLocaleDateString() === date
       ).length;
       motorcycleSeries.push({
@@ -124,11 +131,11 @@ export class DashboardComponent implements OnInit {
       (this.motorcycleDayAverage / motorcycleDates.size).toFixed(2)
     );
 
-    this.multi.push({ name: 'Motorcycles', series: motorcycleSeries });
+    this.multi.push({ name: "Motorcycles", series: motorcycleSeries });
     this.single.push({
-      name: 'Motorcycles',
+      name: "Motorcycles",
       value: this.parkingLots.filter(
-        (vehicle) => vehicle.status && vehicle.vehicleType === 2
+        (vehicle) => vehicle.status && vehicle.vehicleType === MOTORCYCLE
       ).length,
     });
   }
