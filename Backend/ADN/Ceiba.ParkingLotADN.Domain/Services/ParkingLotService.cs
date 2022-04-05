@@ -66,7 +66,7 @@ namespace Ceiba.ParkingLotADN.Domain.Services
             }
             parkingLot.FinishedAt = DateTime.Now;
             parkingLot.Status = false;
-            int hours = (int)Math.Truncate((parkingLot.FinishedAt.Value - parkingLot.StartedAt).TotalHours);
+            int hours = (int)Math.Ceiling((parkingLot.FinishedAt.Value - parkingLot.StartedAt).TotalHours);
             decimal cost = _chargerContext.CalculateCharge(hours, parkingLot.Cylinder, (VehicleType)parkingLot.VehicleType);
             await _repository.UpdateAsync(parkingLot);
             return cost;
@@ -78,7 +78,7 @@ namespace Ceiba.ParkingLotADN.Domain.Services
             {
                 throw new NonExistentVehicleException("This vehicle is not in the parking lot");
             }
-            return _chargerContext.CalculateCharge((int)Math.Truncate((DateTime.Now - parkingLot.StartedAt).TotalHours), parkingLot.Cylinder, (VehicleType)parkingLot.VehicleType);
+            return _chargerContext.CalculateCharge((int)Math.Ceiling((DateTime.Now - parkingLot.StartedAt).TotalHours), parkingLot.Cylinder, (VehicleType)parkingLot.VehicleType);
         }
     }
 }
