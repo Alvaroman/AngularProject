@@ -72,7 +72,7 @@ namespace Ceiba.ParkingLotADN.Domain.Tests.ParkingLot
                   .WithCylinder(450)
                   .WithVehicleType(2)
                   .WithStartAt(new System.DateTime(year: 2022, month: 03, day: 21))
-                  .WithPlate("abc-623")
+                  .WithPlate("abc-424")
                   .WithStaus(false).Build();
                 await _parkingLotService.RegisterParkingLotAsync(notAllowedByPicoPlaca);
             }
@@ -90,7 +90,7 @@ namespace Ceiba.ParkingLotADN.Domain.Tests.ParkingLot
                   .WithCylinder(1800)
                   .WithVehicleType(1)
                   .WithStartAt(new System.DateTime(year: 2022, month: 03, day: 21))
-                  .WithPlate("abc-126")
+                  .WithPlate("abc-424")
                   .WithStaus(false).Build();
                 await _parkingLotService.RegisterParkingLotAsync(parkingLotNowAllowed);
             }
