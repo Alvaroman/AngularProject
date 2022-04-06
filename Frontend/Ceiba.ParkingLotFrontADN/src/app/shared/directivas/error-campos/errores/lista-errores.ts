@@ -1,4 +1,4 @@
-import { InjectionToken } from "@angular/core";
+import { InjectionToken } from '@angular/core';
 
 export const listaErrores = {
   required: (_) => `Dato <strong> obligatorio </strong>`,
@@ -14,7 +14,7 @@ export const listaErrores = {
     `Dato debe coincidir con el <strong> formato requerido</strong> `,
 };
 
-export const FORM_ERRORS = new InjectionToken("FORM_ERRORS", {
-  providedIn: "root",
+export const FORM_ERRORS = new InjectionToken('FORM_ERRORS', {
+  providedIn: 'root',
   factory: () => listaErrores,
 });

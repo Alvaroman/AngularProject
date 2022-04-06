@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Parkinglot } from '../../shared/model/parkinglot';
 import { ParkinglotService } from '../../shared/service/parkintlot.service';
-
+const CAR = 1;
+const MOTORCYCLE = 2;
+const GRAPHIC1_WIDTH = 1200;
+const GRAPHIC1_HEIGHT = 500;
+const GRAPHIC2_WIDTH = 600;
+const GRAPHIC2_HEIGHT = 305;
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -10,8 +15,8 @@ import { ParkinglotService } from '../../shared/service/parkintlot.service';
 export class DashboardComponent implements OnInit {
   single: any[];
   multi: any[];
-  viewLine = [1200, 500];
-  viewPie = [600, 305];
+  viewLine = [GRAPHIC1_WIDTH, GRAPHIC1_HEIGHT];
+  viewPie = [GRAPHIC2_WIDTH, GRAPHIC2_HEIGHT];
   carDayAverage = 0;
   motorcycleDayAverage = 0;
   colorScheme = {
@@ -51,8 +56,6 @@ export class DashboardComponent implements OnInit {
     });
   }
   setCarData() {
-    const CAR = 1;
-
     let carsSeries: any[] = [];
     let carDates = new Set(
       this.parkingLots
@@ -101,7 +104,6 @@ export class DashboardComponent implements OnInit {
     }
   }
   setMotorcycleData() {
-    const MOTORCYCLE = 2;
     let motorcycleSeries: any[] = [];
     let motorcycleDates = new Set(
       this.parkingLots
