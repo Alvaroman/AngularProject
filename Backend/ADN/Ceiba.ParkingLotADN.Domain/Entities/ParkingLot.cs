@@ -25,7 +25,7 @@ namespace Ceiba.ParkingLotADN.Domain.Entities
         /// Validate a plate string.
         /// </summary>
         /// <returns>Boolean.</returns>
-        public bool IsValidPlate()=>  new Regex(@"^\w{3}-\w{3}$").IsMatch(this.Plate);
+        public bool IsValidPlate()=>  new Regex(@"^\w{3}-\d{2}\w$").IsMatch(this.Plate);
 
 
     }

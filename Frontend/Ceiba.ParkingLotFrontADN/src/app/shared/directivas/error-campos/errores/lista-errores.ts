@@ -1,7 +1,7 @@
-import { InjectionToken } from '@angular/core';
+import { InjectionToken } from "@angular/core";
 
 export const listaErrores = {
-  required: _ => `Dato <strong> obligatorio </strong>`,
+  required: (_) => `Dato <strong> obligatorio </strong>`,
   min: ({ min }) => `Valor mínimo ${min}`,
   max: ({ max }) => `Valor máximo ${max}`,
   repetido: () => `Elemento repetido`,
@@ -10,9 +10,11 @@ export const listaErrores = {
     `Mínimo <strong>${requiredLength}</strong> caracteres, actual <strong>${actualLength}</strong>`,
   maxlength: ({ requiredLength, actualLength }) =>
     `Máximo <strong>${requiredLength}</strong> caracteres, actual <strong>${actualLength}</strong>`,
+  pattern: (_) =>
+    `Dato debe coincidir con el <strong> formato requerido</strong> `,
 };
 
-export const FORM_ERRORS = new InjectionToken('FORM_ERRORS', {
-  providedIn: 'root',
+export const FORM_ERRORS = new InjectionToken("FORM_ERRORS", {
+  providedIn: "root",
   factory: () => listaErrores,
 });

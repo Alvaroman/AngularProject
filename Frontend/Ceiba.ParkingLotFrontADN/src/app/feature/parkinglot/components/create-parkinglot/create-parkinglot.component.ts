@@ -4,6 +4,7 @@ import { ParkinglotService } from '../../shared/service/parkintlot.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
+const PLATE_REQUIRED_LENGTH = 7;
 @Component({
   selector: 'app-create-parkinglot',
   templateUrl: './create-parkinglot.component.html',
@@ -44,7 +45,7 @@ export class CreateParkinglotComponent implements OnInit {
   }
   onSubmit() {
     this.service.create(this.parkinglotForm.value).subscribe(
-      () => { 
+      () => {
         this.toastr.success('Vehicle registered correctly!');
         this.buildParkingLotForm();
         this.getParkingLotData();
@@ -90,7 +91,11 @@ export class CreateParkinglotComponent implements OnInit {
     this.parkinglotForm = new FormGroup({
       id: new FormControl(''),
       cylinder: new FormControl('', [Validators.required]),
-      plate: new FormControl('', [Validators.required]),
+      plate: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(PLATE_REQUIRED_LENGTH),
+        Validators.pattern(`^\\w{3}-\\d{2}\\w$`),
+      ]),
       vehicleType: new FormControl('', [Validators.required]),
     });
   }
