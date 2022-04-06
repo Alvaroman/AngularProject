@@ -47,6 +47,23 @@ namespace Ceiba.ParkingLotADN.Domain.Tests.ParkingLot
             }
         }
         [TestMethod]
+        public async Task FailToRegisterAnInvalidPlateAsync()
+        {
+            try
+            {
+                Ceiba.ParkingLotADN.Domain.Entities.ParkingLot notAllowedPlate = new ParkingLotDataBuilder()
+                 .WithCylinder(0)
+                 .WithVehicleType(1)
+                 .WithPlate("abc-1234")
+                 .WithStaus(false).Build();
+                await _parkingLotService.RegisterParkingLotAsync(notAllowedPlate);
+            }
+            catch (System.Exception ex)
+            {
+                Assert.IsTrue(ex is AppException);
+            }
+        }
+        [TestMethod]
         public async Task FailToRegisterMotorcyclePicoPlacaAsync()
         {
             try
