@@ -29,6 +29,10 @@ namespace Ceiba.ParkingLotADN.Domain.Services
             {
                 throw new VehicleNotAllowedException("You must register a valid vehicle type");
             }
+            if (!parkingLot.IsValidPlate())
+            {
+                throw new AppException("You must register a valid plate");
+            }
             if (!_picoPlacaContext.ValidatePicoPlaca(parkingLot.Plate, (VehicleType)parkingLot.VehicleType))
             {
                 throw new PicoPlacaException("Your vehicle is not allowed due to 'pico y placa' rule");

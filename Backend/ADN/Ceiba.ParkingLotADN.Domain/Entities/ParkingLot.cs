@@ -1,6 +1,7 @@
 ﻿using Ceiba.ParkingLotADN.Domain.Entities.Base;
 using Ceiba.ParkingLotADN.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace Ceiba.ParkingLotADN.Domain.Entities
 {
@@ -20,6 +21,11 @@ namespace Ceiba.ParkingLotADN.Domain.Entities
         /// </summary>
         /// <returns>Boolean.</returns>
         public bool IsVehicleAllowed() => Enum.IsDefined(typeof(VehicleType), this.VehicleType);
+        /// <summary>
+        /// Validate a plate string.
+        /// </summary>
+        /// <returns>Boolean.</returns>
+        public bool IsValidPlate()=>  new Regex(@"^\w{3}-\w{3}$").IsMatch(this.Plate);
 
 
     }
